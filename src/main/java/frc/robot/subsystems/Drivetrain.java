@@ -21,7 +21,6 @@ public class Drivetrain extends SubsystemBase {
 
   private static PigeonIMU m_gyro;
 
-  /** Creates a new Drivetrain. */
   public Drivetrain() {
 
     m_frontLeft = new WPI_TalonSRX(1);
@@ -33,7 +32,6 @@ public class Drivetrain extends SubsystemBase {
 
   }
 
-  //TODO: Comment
   public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelative){
 
     xSpeed = MathUtil.clamp(xSpeed, -1, 1);
@@ -80,9 +78,6 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
-  /**
-   * Normalize all wheel speeds if the magnitude of any wheel is greater than 1
-   */
   private void normalize(double[] wheelSpeeds) {
     double maxMagnitude = Math.abs(wheelSpeeds[0]);
     for (int i = 1; i < wheelSpeeds.length; i++) {
@@ -100,12 +95,8 @@ public class Drivetrain extends SubsystemBase {
   
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+  public void periodic() {}
 
   @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
-  }
+  public void simulationPeriodic() {}
 }
