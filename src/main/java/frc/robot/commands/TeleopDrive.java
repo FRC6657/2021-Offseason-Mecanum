@@ -30,13 +30,11 @@ public class TeleopDrive extends CommandBase {
 
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     System.out.println("Teleop Mecanum Initialized");
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
@@ -44,7 +42,6 @@ public class TeleopDrive extends CommandBase {
 
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
 

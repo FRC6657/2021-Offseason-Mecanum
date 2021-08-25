@@ -15,6 +15,8 @@ public class RobotContainer {
 
   private final XboxController m_controller = new XboxController(0);
 
+  //TODO: Make field relativity a toggle instead of having to hold a button, because I am too lazy to do it.
+
   public RobotContainer() {
     configureButtonBindings();
 
@@ -31,7 +33,6 @@ public class RobotContainer {
   private void configureButtonBindings() {}
 
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return null;
   }
 }
