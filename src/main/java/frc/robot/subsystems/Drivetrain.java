@@ -32,7 +32,7 @@ public class Drivetrain extends SubsystemBase {
 
   }
 
-  public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelative){
+  public void drive(double xSpeed, double ySpeed, double zRotation, boolean fieldRelativeOverride){
 
     xSpeed = MathUtil.clamp(xSpeed, -1, 1);
     ySpeed = MathUtil.clamp(xSpeed, -1, 1);
@@ -44,7 +44,7 @@ public class Drivetrain extends SubsystemBase {
 
     Vector2d input = new Vector2d(ySpeed,xSpeed);
 
-    if(fieldRelative){
+    if(!fieldRelativeOverride){
 
       input.rotate(-m_gyro.getFusedHeading());
 
