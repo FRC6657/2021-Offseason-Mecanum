@@ -11,22 +11,22 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class RobotContainer {
 
+  //Subsystem Inits
   private final Drivetrain m_drivetrain = new Drivetrain();
 
+  //HID Inits
   private final XboxController m_controller = new XboxController(0);
-
-  //TODO: Make field relativity a toggle instead of having to hold a button, because I am too lazy to do it.
-  //TODO: Comment Drivetrain, TeleopDrive, Constants,and RobotContainer
 
   public RobotContainer() {
     configureButtonBindings();
 
+    //Sets the default command for the drivetrain subsystem to Teleop.
     m_drivetrain.setDefaultCommand(new TeleopDrive(
-      m_drivetrain,
-      () -> m_controller.getRawAxis(XboxController.Axis.kRightX.value),
-      () -> m_controller.getRawAxis(XboxController.Axis.kRightY.value),
-      () -> m_controller.getRawAxis(XboxController.Axis.kLeftX.value),
-      () -> m_controller.getRawButton(XboxController.Button.kBumperRight.value)
+      m_drivetrain, //Subsystem Input for calling the drive function within it
+      () -> m_controller.getRawAxis(XboxController.Axis.kRightX.value), //xSpeed Input
+      () -> m_controller.getRawAxis(XboxController.Axis.kRightY.value), //ySpeed Input
+      () -> m_controller.getRawAxis(XboxController.Axis.kLeftX.value),  //zRotation Input
+      () -> m_controller.getRawButton(XboxController.Button.kBumperRight.value) //Button Input for Field Relativity
     ));
 
   }
@@ -34,6 +34,6 @@ public class RobotContainer {
   private void configureButtonBindings() {}
 
   public Command getAutonomousCommand() {
-    return null;
+    return null; //Seed level repositories do not need autonomous.
   }
 }
