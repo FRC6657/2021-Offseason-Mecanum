@@ -41,7 +41,7 @@ public class RobotContainer {
     switch(auto){
       case "Polar":
         return new SequentialCommandGroup(
-          new DrivePolar(m_drivetrain, 0.5, 30)
+          new DrivePolar(m_drivetrain, 0.5, 30).withTimeout(1)
         );
       default:
         return null;
