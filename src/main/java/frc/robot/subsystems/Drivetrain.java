@@ -146,22 +146,36 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
+  //Returns the gyro angle
   public double getAngle(){
     return m_gyro.getFusedHeading();
   }
 
-  //TODO: Comment
   public void turnAngle(double angle){
 
-    m_gyro.setFusedHeading(0);
+    /**
+     * We could reset the gyro and use the angle
+     * but this way we maintain field relativity
+    */
+    double turnPoint = getAngle() + angle;
 
-    double kP = 0.3;
+
+    //Turning is fairy simple on a p value is needed
+    double kP = 0.2;
+
+    //Crude replacement for an I term
     double min_command = 0.05;
-    double max_command = 0.2;
-    double error = getAngle() - angle;
+
+    //Speed limiting to stop runaway values
+    double max_command = 0.4;
+
+    //Simple error calculation
+    double error = getAngle() - turnPoint;
     
+    //Limit rotation to the max and min values
     double zRotation = MathUtil.clamp(error * kP, min_command, max_command);
 
+    //1 Degree of error in turn since we just have to be close enough
     if(error > 1){
       drive(0, 0, zRotation, false);
     }
