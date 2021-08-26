@@ -43,6 +43,10 @@ public class RobotContainer {
         return new SequentialCommandGroup(
           new DrivePolar(m_drivetrain, 0.5, 30).withTimeout(1)
         );
+      case "TurnAngle":
+        return new SequentialCommandGroup(
+          new TurnAngle(m_drivetrain, 45)
+        );
       default:
         return null;
     }

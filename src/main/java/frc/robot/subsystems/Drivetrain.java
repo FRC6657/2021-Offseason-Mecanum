@@ -71,7 +71,7 @@ public class Drivetrain extends SubsystemBase {
      */
     if(!fieldRelativeOverride){
 
-      input.rotate(-m_gyro.getFusedHeading());
+      input.rotate(-getAngle());
 
     }
 
@@ -143,6 +143,30 @@ public class Drivetrain extends SubsystemBase {
       for (int i = 0; i < wheelSpeeds.length; i++) {
         wheelSpeeds[i] = wheelSpeeds[i] / maxMagnitude;
       }
+    }
+  }
+
+  public double getAngle(){
+    return m_gyro.getFusedHeading();
+  }
+
+  //TODO: Comment
+  public void turnAngle(double angle){
+
+    m_gyro.setFusedHeading(0);
+
+    double kP = 0.3;
+    double min_command = 0.05;
+    double max_command = 0.2;
+    double error = getAngle() - angle;
+    
+    double zRotation = MathUtil.clamp(error * kP, min_command, max_command);
+
+    if(error > 1){
+      drive(0, 0, zRotation, false);
+    }
+    else{
+      drive(0,0,0,false);
     }
   }
 }

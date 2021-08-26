@@ -7,16 +7,14 @@ package frc.robot.commands.Auto;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
-public class DrivePolar extends CommandBase {
-  //TODO:Comment
+public class TurnAngle extends CommandBase {
+  // TODO:Comment
   private final Drivetrain m_drivetrain;
-  private final double magnitude;
   private final double angle;
 
-  public DrivePolar(Drivetrain m_drivetrain, double magnitude, double angle) {
+  public TurnAngle(Drivetrain m_drivetrain, double angle) {
     
     this.m_drivetrain = m_drivetrain;
-    this.magnitude = magnitude;
     this.angle = angle;
 
     addRequirements(m_drivetrain);
@@ -29,11 +27,7 @@ public class DrivePolar extends CommandBase {
 
   @Override
   public void execute() {
-    m_drivetrain.drive(
-      magnitude * Math.sin(angle * (Math.PI/180)),
-      magnitude * Math.cos(angle * (Math.PI/180)),
-      0,
-      false);
+    m_drivetrain.turnAngle(angle);
   }
 
   @Override
@@ -45,6 +39,6 @@ public class DrivePolar extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return (Math.abs(m_drivetrain.getAngle() - angle) < 1);
   }
 }
