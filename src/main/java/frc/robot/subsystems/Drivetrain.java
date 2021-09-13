@@ -23,4 +23,18 @@ public class Drivetrain extends SubsystemBase {
     m_backRight = new WPI_TalonSRX(4);
 
   }
+
+  public void driveCartesian(double xSpeed, double ySpeed, double zRotation){
+
+    double frontLeft = xSpeed + ySpeed + zRotation;
+    double frontRight = -xSpeed + ySpeed - zRotation;
+    double backLeft = -xSpeed + ySpeed + zRotation;
+    double backright = xSpeed - ySpeed - zRotation;
+
+    m_frontLeft.set(frontLeft);
+    m_frontRight.set(frontRight);
+    m_backLeft.set(backLeft);
+    m_backRight.set(backright);
+
+  }
 }
