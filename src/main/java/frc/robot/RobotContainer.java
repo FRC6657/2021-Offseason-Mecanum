@@ -26,8 +26,8 @@ public class RobotContainer {
     CommandScheduler.getInstance().setDefaultCommand(m_drivetrain, 
       new TeleOp(
         m_drivetrain,
-        () -> m_controller.getRawAxis(XboxController.Axis.kLeftY.value), 
         () -> m_controller.getRawAxis(XboxController.Axis.kLeftX.value), 
+        () -> -m_controller.getRawAxis(XboxController.Axis.kLeftY.value), 
         () -> m_controller.getRawAxis(XboxController.Axis.kRightX.value)));
 
   }
