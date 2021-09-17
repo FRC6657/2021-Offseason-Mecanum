@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
@@ -29,12 +30,17 @@ public class Drivetrain extends SubsystemBase {
     double frontLeft = xSpeed + ySpeed + zRotation;
     double frontRight = -xSpeed + ySpeed - zRotation;
     double backLeft = -xSpeed + ySpeed + zRotation;
-    double backright = xSpeed - ySpeed - zRotation;
+    double backRight = xSpeed - ySpeed - zRotation;
 
     m_frontLeft.set(frontLeft);
     m_frontRight.set(frontRight);
     m_backLeft.set(backLeft);
-    m_backRight.set(backright);
+    m_backRight.set(backRight);
+
+    SmartDashboard.putNumber("FL", frontLeft);
+    SmartDashboard.putNumber("FR", frontRight);
+    SmartDashboard.putNumber("BL", backLeft);
+    SmartDashboard.putNumber("BR", backRight);
 
   }
 }
