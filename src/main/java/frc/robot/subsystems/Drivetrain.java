@@ -8,7 +8,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -44,4 +43,33 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("BR", -backRight);
 
   }
+
+  /**
+   * @param input    Input in need of a deadband
+   * @param deadband Deadband threshold
+   * @param weight   Weight of the curve
+   * 
+   * @author Andrew Card
+   */
+  private double cubicScaledDeadband(double input, double deadband, double weight){
+
+    //Make the inputs smaller in size to make the equation more 'readable'
+    double w = weight;
+    double d = deadband;
+    double x = input;
+
+    //default output value
+    double output = 0;
+
+    //This equation is long an complicated here is a visual representation: https://www.desmos.com/calculator/coy9bhp32l
+    if(Math.abs(x) > deadband){
+      output = (((w * (Math.pow(x, 3)) + 1*(1 - w) * x) - (Math.abs(x)) / x * (w * (Math.pow(d, 3)) + (1 - w) * d)) / (1 - (w * (Math.pow(d, 3)) + (1 - w) * d)));
+    }
+    else{
+      output=0;
+    }
+    return output;
+
+  }
+
 }
