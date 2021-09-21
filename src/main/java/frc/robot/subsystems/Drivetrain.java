@@ -8,6 +8,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpiutil.math.MathUtil;
+import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -25,7 +27,38 @@ public class Drivetrain extends SubsystemBase {
 
   }
 
-  public void driveCartesian(double xSpeed, double ySpeed, double zRotation){
+  /**
+   * @param xSpeed Speed Along X Axis
+   * @param ySpeed Speed Along Y Axis
+   * @param zRotation Roational Speed
+   * @param deadband Deadband Type
+   * 
+   * Deadband Types:
+   *      "None"
+   *      "Cubic"
+   *      "Linear"
+   * 
+   * @author Andrew Card
+   */
+  public void driveCartesian(double xSpeed, double ySpeed, double zRotation, String deadband){
+
+    switch(deadband){
+      default:
+        break;
+      case "Cubic":
+        //Max weight for maximum fine control
+        xSpeed = cubicScaledDeadband(xSpeed, Constants.DRIVE_DEADBAND, 1);
+        ySpeed = cubicScaledDeadband(ySpeed, Constants.DRIVE_DEADBAND, 1);
+        zRotation = cubicScaledDeadband(zRotation, Constants.DRIVE_DEADBAND, 1);
+        break;
+      case "Linear":
+        //The cubicScaledDeadband function is still used for lienar because setting the weight to 0 will make it effectivly a linearScaledDeadband
+        xSpeed = cubicScaledDeadband(xSpeed, Constants.DRIVE_DEADBAND, 0);
+        ySpeed = cubicScaledDeadband(ySpeed, Constants.DRIVE_DEADBAND, 0);
+        zRotation = cubicScaledDeadband(zRotation, Constants.DRIVE_DEADBAND, 0);
+        break;
+    }
+
 
     double frontLeft = xSpeed + ySpeed + zRotation;
     double frontRight = -xSpeed + ySpeed - zRotation;
@@ -54,9 +87,9 @@ public class Drivetrain extends SubsystemBase {
   private double cubicScaledDeadband(double input, double deadband, double weight){
 
     //Make the inputs smaller in size to make the equation more 'readable'
-    double w = weight;
-    double d = deadband;
-    double x = input;
+    double w = MathUtil.clamp(weight,0,1);
+    double d = MathUtil.clamp(deadband,0,1);
+    double x = MathUtil.clamp(input, -1, 1);
 
     //default output value
     double output = 0;

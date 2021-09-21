@@ -34,12 +34,12 @@ public class TeleOp extends CommandBase {
 
   @Override
   public void execute() {
-    m_drivetrain.driveCartesian(xSpeed.getAsDouble(), ySpeed.getAsDouble(), zRotation.getAsDouble());
+    m_drivetrain.driveCartesian(xSpeed.getAsDouble(), ySpeed.getAsDouble(), zRotation.getAsDouble(), "Cubic");
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_drivetrain.driveCartesian(0, 0, 0);
+    m_drivetrain.driveCartesian(0, 0, 0, "None");
   }
 
   @Override
