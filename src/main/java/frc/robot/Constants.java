@@ -6,7 +6,7 @@ package frc.robot;
 
 
 /**
- * The place where variables that should never under and sercumstances ever change during runtime.
+ *  For variables that will never change during operation.
  */
 public final class Constants {
     public static final double DRIVE_DEADBAND = 0.05;
