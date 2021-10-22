@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpiutil.math.MathUtil;
@@ -17,6 +18,8 @@ public class Drivetrain extends SubsystemBase {
   private WPI_TalonSRX m_frontRight;
   private WPI_TalonSRX m_backLeft;
   private WPI_TalonSRX m_backRight;
+
+  private SlewRateLimiter speedlimit = new SlewRateLimiter(0.75);
   
   public Drivetrain() {
 
@@ -58,12 +61,20 @@ public class Drivetrain extends SubsystemBase {
         zRotation = cubicScaledDeadband(zRotation, Constants.DRIVE_DEADBAND, 0);
         break;
     }
-
+/* 
+    xSpeed = .4;
+    ySpeed = 0;
+    zRotation = 0; */
 
     double frontLeft = xSpeed + ySpeed + zRotation;
     double frontRight = -xSpeed + ySpeed - zRotation;
     double backLeft = -xSpeed + ySpeed + zRotation;
     double backRight = xSpeed + ySpeed - zRotation;
+
+    frontLeft = speedlimit.calculate(frontLeft);
+    frontRight = speedlimit.calculate(frontRight);
+    backLeft = speedlimit.calculate(backLeft);
+    backRight = speedlimit.calculate(backRight);
 
     m_frontLeft.set(frontLeft);
     m_frontRight.set(-frontRight);
