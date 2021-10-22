@@ -9,5 +9,5 @@ package frc.robot;
  *  For variables that will never change during operation.
  */
 public final class Constants {
-    public static final double DRIVE_DEADBAND = 0.05;
+    public static final double DRIVE_DEADBAND = 0.2;
 }

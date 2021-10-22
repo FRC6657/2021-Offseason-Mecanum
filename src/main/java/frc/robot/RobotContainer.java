@@ -26,7 +26,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     CommandScheduler.getInstance().setDefaultCommand(m_drivetrain, new TeleOp(m_drivetrain,
-        () -> m_controller.getRawAxis(0) * .6, () -> -m_controller.getRawAxis(1) * .6, () -> m_controller.getRawAxis(2) * .6));
+        () -> m_controller.getRawAxis(0), () -> -m_controller.getRawAxis(1), () -> m_controller.getRawAxis(2)));
 
     final JoystickButton side = new JoystickButton(m_controller, 2);
     side.whenHeld(new IntakePowercells(m_intake, .4));
