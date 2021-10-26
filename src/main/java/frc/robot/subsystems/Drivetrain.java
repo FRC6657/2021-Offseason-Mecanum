@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SlewRateLimiter;
@@ -27,6 +28,11 @@ public class Drivetrain extends SubsystemBase {
     m_frontRight = new WPI_TalonSRX(2);
     m_backLeft = new WPI_TalonSRX(3);
     m_backRight = new WPI_TalonSRX(4);
+
+    m_frontLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+    m_frontRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+    m_backLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+    m_backRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 
   }
 
@@ -116,4 +122,13 @@ public class Drivetrain extends SubsystemBase {
 
   }
 
+ @Override
+ public void periodic(){
+
+  SmartDashboard.putNumber("Front Left Encoder Position",m_frontLeft.getSelectedSensorPosition());
+  SmartDashboard.putNumber("Front Right Encoder Position",m_frontRight.getSelectedSensorPosition());
+  SmartDashboard.putNumber("Back Left Encoder Position",m_backLeft.getSelectedSensorPosition());
+  SmartDashboard.putNumber("Back Right Encoder Position",m_backRight.getSelectedSensorPosition());
+
+ }
 }
