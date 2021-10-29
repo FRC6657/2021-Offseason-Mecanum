@@ -77,10 +77,10 @@ public class Drivetrain extends SubsystemBase {
     double backLeft = -xSpeed + ySpeed + zRotation;
     double backRight = xSpeed + ySpeed - zRotation;
 
-    frontLeft = speedlimit.calculate(frontLeft);
+    /* frontLeft = speedlimit.calculate(frontLeft);
     frontRight = speedlimit.calculate(frontRight);
     backLeft = speedlimit.calculate(backLeft);
-    backRight = speedlimit.calculate(backRight);
+    backRight = speedlimit.calculate(backRight); */
 
     m_frontLeft.set(frontLeft);
     m_frontRight.set(-frontRight);
